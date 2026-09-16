@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLC Football Ecosystem — Master Platform</title>
+  
+  <!-- Modern Dark Typography & Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #080b10;
+      --panel-bg: rgba(18, 24, 38, 0.75);
+      --accent-gold: #e5b842;
+      --accent-blue: #00e5ff;
+      --text-main: #ffffff;
+      --text-muted: #8b9bb4;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --font-sports: 'Teko', sans-serif;
+      --font-body: 'Tajawal', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* 🎬 1. CINEMATIC INTRO OVERLAY */
+    #cinematic-intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .intro-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      filter: blur(2px);
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .intro-logo {
+      font-family: var(--font-sports);
+      font-size: 6rem;
+      letter-spacing: 6px;
+      color: var(--accent-gold);
+      text-shadow: 0 0 30px rgba(229, 184, 66, 0.5);
+      margin-bottom: -10px;
+    }
+
+    .intro-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-enter {
+      background: linear-gradient(135deg, var(--accent-gold), #b38715);
+      color: #000;
+      font-weight: 900;
+      font-size: 1.2rem;
+      padding: 12px 40px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(229, 184, 66, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-enter:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(229, 184, 66, 0.8);
+    }
+
+    /* 🛡️ 2. TOP NAVIGATION BAR */
+    .top-nav {
+      height: 70px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+    }
+
+    .nav-logo {
+      font-family: var(--font-sports);
+      font-size: 2.5rem;
+      color: var(--accent-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* 👤 3. PLAYER CARD HERO SECTION */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+    }
+
+    /* FUT-Style Player Card */
+    .player-card {
+      background: linear-gradient(180deg, #222b3e 0%, #0e131d 100%);
+      border: 2px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .card-rating {
+      font-family: var(--font-sports);
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--accent-gold);
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .card-pos {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      position: absolute;
+      top: 65px;
+      right: 25px;
+      font-weight: bold;
+    }
+
+    .player-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-gold);
+      margin: 20px auto 10px;
+      object-fit: cover;
+    }
+
+    .player-name {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .player-club {
+      color: var(--accent-blue);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .metric-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-val {
+      color: var(--accent-gold);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* 📊 STATS PANEL */
+    .stats-panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .panel-header {
+      font-size: 1.3rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      color: var(--accent-blue);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .stat-number {
+      font-family: var(--font-sports);
+      font-size: 2.5rem;
+      color: var(--text-main);
+    }
+
+    /* 🔐 4. HIDDEN ADMIN MODAL */
+    .modal-overlay {
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .admin-login-card {
+      background: #151c28;
+      border: 1px solid var(--accent-gold);
+      padding: 2rem;
+      border-radius: 8px;
+      width: 320px;
+    }
+
+    .admin-login-card input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #080b10;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. CINEMATIC INTRO -->
+  <div id="cinematic-intro">
+    <video class="intro-bg-video" autoplay loop muted playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-player-kicking-a-ball-41168-large.mp4" type="video/mp4">
+    </video>
+    <div class="intro-content">
+      <h1 class="intro-logo">TLC ECOSYSTEM</h1>
+      <p class="intro-subtitle">SEASON 6 — MASTER PLATFORM</p>
+      <button class="btn-enter" onclick="enterPlatform()">ENTER TLC</button>
+    </div>
+  </div>
+
+  <!-- 2. TOP NAVIGATION -->
+  <nav class="top-nav">
+    <div class="nav-brand" id="hidden-logo-trigger">
+      <span class="nav-logo">TLC</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">الرئيسية</a></li>
+      <li><a href="#">المباريات</a></li>
+      <li><a href="#">اللاعبين</a></li>
+      <li><a href="#">الأندية</a></li>
+      <li><a href="#">الانتقالات</a></li>
+    </ul>
+  </nav>
+
+  <!-- 3. MAIN DASHBOARD CONTENT -->
+  <main class="container">
+    <div class="dashboard-grid">
+      
+      <!-- Player Profile Card (Live Data Simulation) -->
+      <div class="player-card">
+        <div class="card-rating">9.2</div>
+        <div class="card-pos">ST</div>
+        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300" alt="MESHAL" class="player-avatar">
+        <h2 class="player-name">MESHAL</h2>
+        <p class="player-club">TLC FC</p>
+
+        <div class="card-metrics">
+          <div class="metric-box">
+            <span>Market Value</span>
+            <span class="metric-val">€2.4M</span>
+          </div>
+          <div class="metric-box">
+            <span>Weekly Salary</span>
+            <span class="metric-val">€50K</span>
+          </div>
+          <div class="metric-box">
+            <span>Form</span>
+            <span class="metric-val" style="color: #00ff66;">🔥 Excellent</span>
+          </div>
+          <div class="metric-box">
+            <span>Wallet</span>
+            <span class="metric-val">€350K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Engine View -->
+      <div class="stats-panel">
+        <h3 class="panel-header">إحصائيات الموسم الحالي (Automatic Aggregation)</h3>
+        <div class="stats-row">
+          <div class="stat-card">
+            <span>المباريات</span>
+            <div class="stat-number">18</div>
+          </div>
+          <div class="stat-card">
+            <span>الأهداف</span>
+            <div class="stat-number">24</div>
+          </div>
+          <div class="stat-card">
+            <span>التمريرات الحاسمة</span>
+            <div class="stat-number">9</div>
+          </div>
+          <div class="stat-card">
+            <span>رجل المباراة MOTM</span>
+            <div class="stat-number">7</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 4. HIDDEN ADMIN LOGIN MODAL -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="admin-login-card">
+      <h3 style="color: var(--accent-gold); margin-bottom: 10px;">Hidden Admin Access</h3>
+      <input type="email" placeholder="Admin Email" value="alioumaroine34@gmail.com" readonly>
+      <input type="password" placeholder="Password">
+      <button class="btn-enter" style="width: 100%; margin-top: 10px;" onclick="closeAdminModal()">Login</button>
+    </div>
+  </div>
+
+  <script>
+    // 🎬 Enter Platform Logic
+    function enterPlatform() {
+      const intro = document.getElementById('cinematic-intro');
+      intro.style.opacity = '0';
+      setTimeout(() => {
+        intro.style.visibility = 'hidden';
+      }, 800);
+    }
+
+    // 🔐 Hidden Admin Trigger (Multi-Click 10 Times)
+    let clickCount = 0;
+    const logoTrigger = document.getElementById('hidden-logo-trigger');
+    const adminModal = document.getElementById('adminModal');
+
+    logoTrigger.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount >= 10) {
+        adminModal.style.display = 'flex';
+        clickCount = 0; // Reset
+      }
+    });
+
+    function closeAdminModal() {
+      adminModal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
